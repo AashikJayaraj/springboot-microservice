@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: USER-APP
+          uri: lb://USER-APP
+          predicates:
+            - Path=/user/**
+
+        - id: MOVIE-APP
+          uri: lb://MOVIE-APP
+          predicates:
+            - Path=/movie/**
+
+        - id: REVIEW-APP
+          uri: lb://REVIEW-APP
+          predicates:
+            - Path=/review/**
+
+
+server:
+  port: 8087
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8081/eureka
